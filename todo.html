@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+    <style>
+        
+        #container {
+            display: flex;
+            flex-direction: column; 
+            gap: 10px; 
+        }
+    </style>
+</head>
+<body>
+   
+   <div id="div">
+       
+       <input type="text" id="catogory" placeholder="CATEGORY"> <br><br>
+       
+       <input type="text" id="details" placeholder="Details about it"> <br><br>
+       
+       <button onclick="handleAddTodo()">ADD BUTTON</button>
+   </div>
+    <hr>
+   
+    <div id="container">
+       
+    </div>
+
+    <script>
+        
+        let container_main = document.getElementById("container");
+
+        
+        function handleAddTodo() {
+            
+            let todo = document.createElement("div");
+            todo.style.border = "1px solid black";  
+            todo.style.padding = "10px";  
+
+            
+            let getCatogory = document.getElementById("catogory");
+            let getDetails = document.getElementById("details");
+
+           
+            if (getCatogory.value === "" || getDetails.value === "") {
+                alert("Both fields are mandatory");
+            } else {
+               
+                let title = document.createElement("h1");
+                title.innerText = getCatogory.value;
+
+                
+                let details = document.createElement("p");
+                details.innerText = getDetails.value;
+
+                
+                todo.appendChild(title);
+                todo.appendChild(details);
+
+               
+                let edit = document.createElement("button");
+                edit.style.backgroundColor = "blue"; 
+                edit.innerText = "EDIT";
+
+                let deleted = document.createElement("button");
+                deleted.style.backgroundColor = "red";  
+                deleted.innerText = "DELETE";
+
+            
+                let completed = document.createElement("button");
+                completed.style.backgroundColor = "green";  
+                completed.innerText = "COMPLETED";
+
+             
+                todo.appendChild(edit);
+                todo.appendChild(deleted);
+                todo.appendChild(completed);
+
+               
+                container_main.appendChild(todo);
+
+               
+                edit.addEventListener("click", () => {
+                    
+                    getCatogory.value = title.innerText;
+                    getDetails.value = details.innerText;
+
+                  
+                    container_main.removeChild(todo);
+                });
+
+                
+                deleted.addEventListener("click", () => {
+                  
+                    container_main.removeChild(todo);
+                });
+
+                
+                completed.addEventListener("click", () => {
+                    
+                    details.style.textDecoration = "line-through";
+                });
+            }
+
+           
+            getCatogory.value = "";
+            getDetails.value = "";
+        }
+    </script>
+</body>
+</html>
